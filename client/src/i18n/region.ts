@@ -1,0 +1,152 @@
+const COUNTRY_BY_TIMEZONE: Record<string, string> = {
+  'Europe/Istanbul': 'TR',
+  'Asia/Istanbul': 'TR',
+  Turkey: 'TR',
+
+  'Europe/Berlin': 'DE',
+  'Europe/Busingen': 'DE',
+  'Europe/Vienna': 'AT',
+  'Europe/Zurich': 'CH',
+  'Europe/Vaduz': 'LI',
+  'Europe/Luxembourg': 'LU',
+
+  'Europe/Madrid': 'ES',
+  'Africa/Ceuta': 'ES',
+  'Atlantic/Canary': 'ES',
+  'Europe/Andorra': 'AD',
+  'America/Mexico_City': 'MX',
+  'America/Cancun': 'MX',
+  'America/Merida': 'MX',
+  'America/Monterrey': 'MX',
+  'America/Matamoros': 'MX',
+  'America/Chihuahua': 'MX',
+  'America/Ciudad_Juarez': 'MX',
+  'America/Ojinaga': 'MX',
+  'America/Mazatlan': 'MX',
+  'America/Bahia_Banderas': 'MX',
+  'America/Hermosillo': 'MX',
+  'America/Tijuana': 'MX',
+  'America/Bogota': 'CO',
+  'America/Lima': 'PE',
+  'America/Santiago': 'CL',
+  'America/Punta_Arenas': 'CL',
+  'America/Caracas': 'VE',
+  'America/Guayaquil': 'EC',
+  'America/La_Paz': 'BO',
+  'America/Asuncion': 'PY',
+  'America/Montevideo': 'UY',
+  'America/Argentina/Buenos_Aires': 'AR',
+  'America/Argentina/Cordoba': 'AR',
+  'America/Argentina/Mendoza': 'AR',
+  'America/Argentina/Salta': 'AR',
+  'America/Argentina/Jujuy': 'AR',
+  'America/Argentina/Tucuman': 'AR',
+  'America/Argentina/Catamarca': 'AR',
+  'America/Argentina/La_Rioja': 'AR',
+  'America/Argentina/San_Juan': 'AR',
+  'America/Argentina/San_Luis': 'AR',
+  'America/Argentina/Rio_Gallegos': 'AR',
+  'America/Argentina/Ushuaia': 'AR',
+  'America/Buenos_Aires': 'AR',
+  'America/Guatemala': 'GT',
+  'America/El_Salvador': 'SV',
+  'America/Tegucigalpa': 'HN',
+  'America/Managua': 'NI',
+  'America/Costa_Rica': 'CR',
+  'America/Panama': 'PA',
+  'America/Havana': 'CU',
+  'America/Santo_Domingo': 'DO',
+  'America/Puerto_Rico': 'PR',
+
+  'Europe/Helsinki': 'FI',
+
+  'Europe/Paris': 'FR',
+  'Europe/Monaco': 'MC',
+  'Europe/Brussels': 'BE',
+
+  'Europe/Rome': 'IT',
+  'Europe/San_Marino': 'SM',
+  'Europe/Vatican': 'VA',
+
+  'Europe/Amsterdam': 'NL',
+
+  'America/Sao_Paulo': 'BR',
+  'America/Fortaleza': 'BR',
+  'America/Recife': 'BR',
+  'America/Bahia': 'BR',
+  'America/Belem': 'BR',
+  'America/Maceio': 'BR',
+  'America/Araguaina': 'BR',
+  'America/Santarem': 'BR',
+  'America/Manaus': 'BR',
+  'America/Cuiaba': 'BR',
+  'America/Campo_Grande': 'BR',
+  'America/Porto_Velho': 'BR',
+  'America/Boa_Vista': 'BR',
+  'America/Rio_Branco': 'BR',
+  'America/Eirunepe': 'BR',
+  'America/Noronha': 'BR',
+  'Europe/Lisbon': 'PT',
+  'Atlantic/Madeira': 'PT',
+  'Atlantic/Azores': 'PT',
+};
+
+const LANGUAGES_BY_COUNTRY: Record<string, readonly string[]> = {
+  TR: ['tr'],
+  DE: ['de'],
+  AT: ['de'],
+  LI: ['de'],
+  CH: ['de', 'fr', 'it'],
+  LU: ['fr', 'de'],
+  BE: ['nl', 'fr'],
+  FR: ['fr'],
+  MC: ['fr'],
+  ES: ['es'],
+  AD: ['es'],
+  MX: ['es'],
+  CO: ['es'],
+  PE: ['es'],
+  CL: ['es'],
+  VE: ['es'],
+  EC: ['es'],
+  BO: ['es'],
+  PY: ['es'],
+  UY: ['es'],
+  AR: ['es'],
+  GT: ['es'],
+  SV: ['es'],
+  HN: ['es'],
+  NI: ['es'],
+  CR: ['es'],
+  PA: ['es'],
+  CU: ['es'],
+  DO: ['es'],
+  PR: ['es'],
+  FI: ['fi'],
+  IT: ['it'],
+  SM: ['it'],
+  VA: ['it'],
+  NL: ['nl'],
+  BR: ['pt-BR'],
+  PT: ['pt-BR'],
+};
+
+function countryFromTimezone(timeZone: string): string | undefined {
+  return COUNTRY_BY_TIMEZONE[timeZone];
+}
+
+export function regionalLanguage(
+  timeZone: string,
+  browserLanguages: readonly string[],
+): string | undefined {
+  const country = countryFromTimezone(timeZone);
+  const candidates = country ? LANGUAGES_BY_COUNTRY[country] : undefined;
+  if (!candidates) return undefined;
+
+  const preferred = browserLanguages
+    .map((language) => language.toLowerCase())
+    .flatMap((language) =>
+      candidates.filter((candidate) => language.startsWith(candidate.slice(0, 2))),
+    );
+  return preferred[0] ?? candidates[0];
+}
