@@ -7,54 +7,33 @@ export const en = {
     retry: 'Try again',
     refresh: 'Refresh',
     back: 'Back',
+    close: 'Close',
     show: 'Show',
     hide: 'Hide',
   },
   nav: {
     home: 'Home',
     workspaces: 'Workspaces',
-    docs: 'API docs',
+    recent: 'Recent',
+    menu: 'Menu',
     source: 'Source code',
     signIn: 'Sign in with Habbodan',
     signOut: 'Sign out',
     language: 'Language',
-    signedInAs: 'Signed in as {{name}}',
   },
   footer: {
-    description:
-      'An open-source portal for the Habbo Wired Variables API. Read, edit and organise your room’s variables from the web.',
-    explore: 'Explore',
-    project: 'Project',
-    openSource: 'Open source on GitHub',
     disclaimer:
       'Habbodan is a fan site and is not affiliated with, endorsed, sponsored or approved by Sulake.',
   },
   home: {
     subtitle:
       'Read, edit and organise your room’s Wired variables from any device, with the keys from your Web API add-on.',
-    cta: 'Open workspaces',
-    quickStart: {
-      title: 'Quick start',
-      caption: 'Web API add-on',
-      item: 'Bring your read & write keys',
-      itemCaption: 'Every hotel is supported',
-    },
-    featured: {
-      tag: 'Workspaces',
-      title: 'User, furni and global variables in one place',
-      body: 'Browse values, edit profiles and pin what matters',
-    },
-    docsCard: {
-      title: 'API docs',
-      body: 'Every Wired Variables endpoint',
-    },
-    sourceCard: {
-      title: 'Built in the open',
-      body: 'Read the code or contribute',
-    },
+    cta: 'Create a workspace',
+    browse: 'Browse workspaces',
+    recent: 'Recent workspaces',
+    viewAll: 'View all',
     steps: {
       title: 'How it works',
-      subtitle: 'From the room to the web in three steps.',
       one: {
         title: 'Get your keys',
         body: 'Place the Web API add-on in your room and copy its read and write keys.',
@@ -77,8 +56,10 @@ export const en = {
     title: 'Workspaces',
     subtitle: 'Each workspace connects to one room in one hotel.',
     new: 'New workspace',
+    search: 'Search by name, room or hotel',
+    noResults: 'No workspaces match your search.',
+    allHotels: 'All',
     room: 'Room {{id}}',
-    updated: 'Updated {{date}}',
     readKey: 'Read',
     writeKey: 'Write',
     empty: {
@@ -118,6 +99,34 @@ export const en = {
       name: 'Give the workspace a name (up to 48 characters).',
       roomId: 'Enter a valid room ID.',
       key: 'That doesn’t look like a Web API key.',
+    },
+  },
+  wizard: {
+    steps: {
+      hotel: 'Hotel',
+      room: 'Room',
+      keys: 'Keys',
+    },
+    titles: {
+      hotel: 'Which hotel is the room in?',
+      room: 'Name the workspace and pick the room',
+      keys: 'Add the Web API keys',
+    },
+    stepOf: 'Step {{current}} of {{total}}',
+    next: 'Continue',
+  },
+  settings: {
+    general: {
+      title: 'General',
+      body: 'The name, room and hotel of this workspace.',
+    },
+    keys: {
+      title: 'Keys',
+      body: 'The read and write keys from the room’s Web API add-on.',
+    },
+    danger: {
+      title: 'Danger zone',
+      body: 'Deleting a workspace can’t be undone.',
     },
   },
   console: {
@@ -215,13 +224,6 @@ export const en = {
     deleteProfileConfirm: 'Delete every stored variable on this profile?',
   },
   tools: {
-    ids: {
-      title: 'ID converter',
-      body: 'Wall items and BC furni use different IDs in game than in the API.',
-      kind: 'Target',
-      inGame: 'In-game ID',
-      api: 'API ID',
-    },
     bulk: {
       title: 'Bulk delete',
       body: 'Removes every stored value of the selected variables. The variables themselves stay configured.',

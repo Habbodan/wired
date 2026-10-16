@@ -9,54 +9,33 @@ export const de: Messages = {
     retry: 'Erneut versuchen',
     refresh: 'Aktualisieren',
     back: 'Zurück',
+    close: 'Schließen',
     show: 'Anzeigen',
     hide: 'Verbergen',
   },
   nav: {
     home: 'Startseite',
     workspaces: 'Arbeitsbereiche',
-    docs: 'API-Doku',
+    recent: 'Zuletzt verwendet',
+    menu: 'Menü',
     source: 'Quellcode',
     signIn: 'Mit Habbodan anmelden',
     signOut: 'Abmelden',
     language: 'Sprache',
-    signedInAs: 'Angemeldet als {{name}}',
   },
   footer: {
-    description:
-      'Ein Open-Source-Portal für die Habbo Wired Variables API. Lies, bearbeite und organisiere die Variablen deines Raums im Web.',
-    explore: 'Entdecken',
-    project: 'Projekt',
-    openSource: 'Open Source auf GitHub',
     disclaimer:
       'Habbodan ist eine Fanseite und steht in keiner Verbindung zu Sulake und wird von Sulake weder unterstützt, gesponsert noch genehmigt.',
   },
   home: {
     subtitle:
       'Lies, bearbeite und organisiere die Wired-Variablen deines Raums von jedem Gerät aus – mit den Schlüsseln aus deinem Web-API-Add-on.',
-    cta: 'Zu den Arbeitsbereichen',
-    quickStart: {
-      title: 'Schnellstart',
-      caption: 'Web-API-Add-on',
-      item: 'Lese- und Schreibschlüssel mitbringen',
-      itemCaption: 'Alle Hotels werden unterstützt',
-    },
-    featured: {
-      tag: 'Arbeitsbereiche',
-      title: 'User-, Möbel- und globale Variablen an einem Ort',
-      body: 'Werte durchsuchen, Profile bearbeiten, Wichtiges anheften',
-    },
-    docsCard: {
-      title: 'API-Doku',
-      body: 'Alle Endpunkte der Wired Variables',
-    },
-    sourceCard: {
-      title: 'Offen entwickelt',
-      body: 'Code lesen oder mitmachen',
-    },
+    cta: 'Arbeitsbereich erstellen',
+    browse: 'Arbeitsbereiche ansehen',
+    recent: 'Zuletzt verwendete Arbeitsbereiche',
+    viewAll: 'Alle anzeigen',
     steps: {
       title: 'So funktioniert’s',
-      subtitle: 'In drei Schritten vom Raum ins Web.',
       one: {
         title: 'Schlüssel holen',
         body: 'Stell das Web-API-Add-on in deinen Raum und kopiere den Lese- und den Schreibschlüssel.',
@@ -79,8 +58,10 @@ export const de: Messages = {
     title: 'Arbeitsbereiche',
     subtitle: 'Jeder Arbeitsbereich ist mit einem Raum in einem Hotel verbunden.',
     new: 'Neuer Arbeitsbereich',
+    search: 'Nach Name, Raum oder Hotel suchen',
+    noResults: 'Keine Arbeitsbereiche gefunden.',
+    allHotels: 'Alle',
     room: 'Raum {{id}}',
-    updated: 'Aktualisiert am {{date}}',
     readKey: 'Lesen',
     writeKey: 'Schreiben',
     empty: {
@@ -121,6 +102,34 @@ export const de: Messages = {
       name: 'Gib dem Arbeitsbereich einen Namen (bis zu 48 Zeichen).',
       roomId: 'Gib eine gültige Raum-ID ein.',
       key: 'Das sieht nicht nach einem Web-API-Schlüssel aus.',
+    },
+  },
+  wizard: {
+    steps: {
+      hotel: 'Hotel',
+      room: 'Raum',
+      keys: 'Schlüssel',
+    },
+    titles: {
+      hotel: 'In welchem Hotel ist der Raum?',
+      room: 'Benenne den Arbeitsbereich und wähle den Raum',
+      keys: 'Web-API-Schlüssel hinzufügen',
+    },
+    stepOf: 'Schritt {{current}} von {{total}}',
+    next: 'Weiter',
+  },
+  settings: {
+    general: {
+      title: 'Allgemein',
+      body: 'Name, Raum und Hotel dieses Arbeitsbereichs.',
+    },
+    keys: {
+      title: 'Schlüssel',
+      body: 'Lese- und Schreibschlüssel aus dem Web-API-Add-on des Raums.',
+    },
+    danger: {
+      title: 'Gefahrenbereich',
+      body: 'Das Löschen eines Arbeitsbereichs kann nicht rückgängig gemacht werden.',
     },
   },
   console: {
@@ -219,13 +228,6 @@ export const de: Messages = {
     deleteProfileConfirm: 'Alle gespeicherten Variablen dieses Profils löschen?',
   },
   tools: {
-    ids: {
-      title: 'ID-Umrechner',
-      body: 'Wandmöbel und BC-Möbel haben im Spiel andere IDs als in der API.',
-      kind: 'Ziel',
-      inGame: 'ID im Spiel',
-      api: 'API-ID',
-    },
     bulk: {
       title: 'Massenlöschung',
       body: 'Entfernt alle gespeicherten Werte der ausgewählten Variablen. Die Variablen selbst bleiben eingerichtet.',

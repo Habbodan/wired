@@ -9,54 +9,33 @@ export const fi: Messages = {
     retry: 'Yritä uudelleen',
     refresh: 'Päivitä',
     back: 'Takaisin',
+    close: 'Sulje',
     show: 'Näytä',
     hide: 'Piilota',
   },
   nav: {
     home: 'Etusivu',
     workspaces: 'Työtilat',
-    docs: 'API-ohjeet',
+    recent: 'Viimeisimmät',
+    menu: 'Valikko',
     source: 'Lähdekoodi',
     signIn: 'Kirjaudu Habbodanilla',
     signOut: 'Kirjaudu ulos',
     language: 'Kieli',
-    signedInAs: 'Kirjautuneena: {{name}}',
   },
   footer: {
-    description:
-      'Avoimen lähdekoodin portaali Habbon Wired-muuttujien API:lle. Lue, muokkaa ja järjestä huoneesi muuttujia verkossa.',
-    explore: 'Tutustu',
-    project: 'Projekti',
-    openSource: 'Avoin lähdekoodi GitHubissa',
     disclaimer:
       'Habbodan on fanisivusto, eikä se ole Sulaken kanssa yhteistyössä tai Sulaken tukema, sponsoroima tai hyväksymä.',
   },
   home: {
     subtitle:
       'Lue, muokkaa ja järjestä huoneesi Wired-muuttujia millä tahansa laitteella Web API -lisäosan avaimilla.',
-    cta: 'Siirry työtiloihin',
-    quickStart: {
-      title: 'Pikaopas',
-      caption: 'Web API -lisäosa',
-      item: 'Ota luku- ja kirjoitusavaimet mukaan',
-      itemCaption: 'Kaikki hotellit tuettuina',
-    },
-    featured: {
-      tag: 'Työtilat',
-      title: 'Käyttäjä-, kaluste- ja globaalit muuttujat samassa paikassa',
-      body: 'Selaa arvoja, muokkaa profiileja ja kiinnitä tärkeät',
-    },
-    docsCard: {
-      title: 'API-ohjeet',
-      body: 'Kaikki Wired-muuttujien rajapinnat',
-    },
-    sourceCard: {
-      title: 'Kehitetään avoimesti',
-      body: 'Lue koodia tai osallistu',
-    },
+    cta: 'Luo työtila',
+    browse: 'Selaa työtiloja',
+    recent: 'Viimeisimmät työtilat',
+    viewAll: 'Näytä kaikki',
     steps: {
       title: 'Näin se toimii',
-      subtitle: 'Huoneesta verkkoon kolmessa vaiheessa.',
       one: {
         title: 'Hae avaimet',
         body: 'Lisää Web API -lisäosa huoneeseesi ja kopioi sen luku- ja kirjoitusavain.',
@@ -79,8 +58,10 @@ export const fi: Messages = {
     title: 'Työtilat',
     subtitle: 'Jokainen työtila liittyy yhteen huoneeseen yhdessä hotellissa.',
     new: 'Uusi työtila',
+    search: 'Hae nimellä, huoneella tai hotellilla',
+    noResults: 'Hakuasi vastaavia työtiloja ei löytynyt.',
+    allHotels: 'Kaikki',
     room: 'Huone {{id}}',
-    updated: 'Päivitetty {{date}}',
     readKey: 'Luku',
     writeKey: 'Kirjoitus',
     empty: {
@@ -120,6 +101,34 @@ export const fi: Messages = {
       name: 'Anna työtilalle nimi (enintään 48 merkkiä).',
       roomId: 'Anna kelvollinen huonetunnus.',
       key: 'Tämä ei näytä Web API -avaimelta.',
+    },
+  },
+  wizard: {
+    steps: {
+      hotel: 'Hotelli',
+      room: 'Huone',
+      keys: 'Avaimet',
+    },
+    titles: {
+      hotel: 'Missä hotellissa huone on?',
+      room: 'Nimeä työtila ja valitse huone',
+      keys: 'Lisää Web API -avaimet',
+    },
+    stepOf: 'Vaihe {{current}}/{{total}}',
+    next: 'Jatka',
+  },
+  settings: {
+    general: {
+      title: 'Yleiset',
+      body: 'Työtilan nimi, huone ja hotelli.',
+    },
+    keys: {
+      title: 'Avaimet',
+      body: 'Huoneen Web API -lisäosan luku- ja kirjoitusavain.',
+    },
+    danger: {
+      title: 'Vaaravyöhyke',
+      body: 'Työtilan poistoa ei voi perua.',
     },
   },
   console: {
@@ -217,13 +226,6 @@ export const fi: Messages = {
     deleteProfileConfirm: 'Poistetaanko kaikki tämän profiilin tallennetut muuttujat?',
   },
   tools: {
-    ids: {
-      title: 'Tunnusmuunnin',
-      body: 'Seinäkalusteilla ja BC-kalusteilla on pelissä eri tunnus kuin API:ssa.',
-      kind: 'Kohde',
-      inGame: 'Pelin tunnus',
-      api: 'API-tunnus',
-    },
     bulk: {
       title: 'Joukkopoisto',
       body: 'Poistaa valittujen muuttujien kaikki tallennetut arvot. Itse muuttujat pysyvät määritettyinä.',

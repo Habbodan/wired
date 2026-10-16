@@ -1,7 +1,8 @@
 import { lazy, Suspense, useEffect } from 'react';
 import { Route, Routes, useSearchParams } from 'react-router';
 import { useTranslation } from 'react-i18next';
-import { Shell } from '@/components/Shell';
+import { AnimatePresence, motion } from 'framer-motion';
+import { AppShell } from '@/components/AppShell';
 import { Spinner } from '@/components/ui';
 import { HomePage } from '@/pages/HomePage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
@@ -11,9 +12,9 @@ const WorkspacesPage = lazy(() =>
     default: module.WorkspacesPage,
   })),
 );
-const WorkspaceEditorPage = lazy(() =>
-  import('@/features/workspaces/WorkspaceEditorPage').then((module) => ({
-    default: module.WorkspaceEditorPage,
+const WorkspaceSettingsPage = lazy(() =>
+  import('@/features/workspaces/WorkspaceSettingsPage').then((module) => ({
+    default: module.WorkspaceSettingsPage,
   })),
 );
 const ConsolePage = lazy(() =>
@@ -35,37 +36,43 @@ function LoginNotice() {
     return () => clearTimeout(timer);
   }, [failed, params, setParams]);
 
-  if (!failed) return null;
   return (
-    <div
-      role="alert"
-      className="fixed top-4 left-1/2 z-50 -translate-x-1/2 rounded-2xl border border-red-400/30 bg-red-500/20 px-5 py-3 text-sm font-semibold text-red-100 shadow-xl backdrop-blur-md"
-    >
-      {t('errors.login_failed')}
-    </div>
+    <AnimatePresence>
+      {failed && (
+        <motion.div
+          role="alert"
+          initial={{ opacity: 0, y: -12 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -12 }}
+          className="fixed top-4 left-1/2 z-50 -translate-x-1/2 rounded-xl border border-red-200 bg-white/95 px-5 py-3 text-sm font-medium text-red-500 shadow-xl backdrop-blur-md"
+        >
+          {t('errors.login_failed')}
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }
 
 const fallback = (
-  <div className="flex min-h-[80vh] items-center justify-center">
+  <div className="flex min-h-[60vh] items-center justify-center">
     <Spinner />
   </div>
 );
 
 export function App() {
   return (
-    <Shell>
+    <AppShell>
       <LoginNotice />
       <Suspense fallback={fallback}>
         <Routes>
           <Route index element={<HomePage />} />
           <Route path="workspaces" element={<WorkspacesPage />} />
-          <Route path="workspaces/new" element={<WorkspaceEditorPage />} />
+          <Route path="workspaces/new" element={<WorkspacesPage />} />
           <Route path="w/:id" element={<ConsolePage />} />
-          <Route path="w/:id/settings" element={<WorkspaceEditorPage />} />
+          <Route path="w/:id/settings" element={<WorkspaceSettingsPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Suspense>
-    </Shell>
+    </AppShell>
   );
 }

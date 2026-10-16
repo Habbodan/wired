@@ -9,12 +9,12 @@ describe('toValueRow', () => {
         creation_time: '2026-10-13T15:47:52.707Z',
         update_time: '2026-10-13T15:51:09.469Z',
       },
-      user: { unique_id: 'hhtr-abc', name: 'eser58', id: 1087347 },
+      user: { unique_id: 'hhtr-abc', name: 'frank', id: 1087347 },
     });
 
     expect(row).toEqual({
       entityId: '1087347',
-      name: 'eser58',
+      name: 'frank',
       value: '700',
       createdAt: '2026-10-13T15:47:52.707Z',
       updatedAt: '2026-10-13T15:51:09.469Z',

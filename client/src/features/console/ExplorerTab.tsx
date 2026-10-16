@@ -17,6 +17,7 @@ import {
 import { ConfirmButton } from '@/components/ConfirmButton';
 import { Button, EmptyState, Field, Input, Select, Spinner } from '@/components/ui';
 import { describeError } from '@/lib/errors';
+import { toApiEntityId, toGameEntityId } from '@/lib/wired/ids';
 import type { EntityRef, ListQuery } from '@/lib/wired/types';
 import { useConsole } from './ConsoleContext';
 import { toValueRow } from './items';
@@ -43,7 +44,7 @@ function PinToggle(props: {
     <Button
       variant={pinned ? 'secondary' : 'ghost'}
       size="sm"
-      icon={<Pin className={clsx('size-3.5', pinned && 'fill-current text-sky-300')} aria-hidden />}
+      icon={<Pin className={clsx('size-3.5', pinned && 'fill-current text-sky-600')} aria-hidden />}
       onClick={() => togglePin(props)}
       aria-pressed={pinned}
     >
@@ -85,7 +86,9 @@ function EntityLookup({
 }) {
   const { t } = useTranslation();
   const { workspace, client } = useConsole();
-  const [draft, setDraft] = useState(initialEntity ?? '');
+  const [draft, setDraft] = useState(
+    initialEntity ? toGameEntityId(targetKind, initialEntity) : '',
+  );
   const [entityId, setEntityId] = useState(initialEntity);
   const { update, remove } = useValueMutations(scope, variable, targetKind);
   const ref: EntityRef | null = entityId ? { scope, targetKind, entityId } : null;
@@ -99,16 +102,17 @@ function EntityLookup({
 
   const submit = (event: FormEvent) => {
     event.preventDefault();
-    if (entityIdSchema.safeParse(draft).success) setEntityId(draft);
+    const apiId = toApiEntityId(targetKind, draft);
+    if (apiId && entityIdSchema.safeParse(apiId).success) setEntityId(apiId);
   };
 
   return (
-    <section className="card p-5">
-      <h3 className="field-label">{t('explorer.lookup')}</h3>
+    <section className="surface p-5">
+      <h3 className="text-sm font-bold text-ink">{t('explorer.lookup')}</h3>
       <form onSubmit={submit} className="mt-3 flex gap-2">
         <Input
           value={draft}
-          onChange={(event) => setDraft(event.target.value.replace(/\D/g, ''))}
+          onChange={(event) => setDraft(event.target.value.replace(/[^\d-]/g, ''))}
           placeholder={t('explorer.entityId')}
           aria-label={t('explorer.entityId')}
           inputMode="numeric"
@@ -120,21 +124,23 @@ function EntityLookup({
       </form>
 
       {ref && (
-        <div className="mt-4 rounded-xl border border-white/[0.07] bg-white/[0.02] p-4">
+        <div className="mt-4 rounded-xl border border-line bg-field p-4">
           {value.isPending ? (
             <Spinner />
           ) : value.error ? (
-            <p className="text-sm text-red-300">{describeError(value.error, t)}</p>
+            <p className="text-sm text-red-500">{describeError(value.error, t)}</p>
           ) : (
             <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-              <span className="text-sm text-sky-200/60">#{ref.entityId}</span>
+              <span className="text-sm text-slate-500">
+                #{toGameEntityId(targetKind, ref.entityId)}
+              </span>
               <ValueEditor
                 value={value.data.value}
                 canEdit={client.hasWriteKey}
                 saving={update.isPending}
                 onSave={(next) => update.mutate({ ref, value: next })}
               />
-              <span className="text-xs text-sky-200/40">{value.data.update_time}</span>
+              <span className="text-xs text-slate-400">{value.data.update_time}</span>
               <div className="ml-auto flex items-center gap-2">
                 <PinToggle
                   scope={scope}
@@ -145,7 +151,10 @@ function EntityLookup({
                 {client.hasWriteKey && (
                   <ConfirmButton
                     size="sm"
-                    question={t('explorer.deleteConfirm', { variable, entity: ref.entityId })}
+                    question={t('explorer.deleteConfirm', {
+                      variable,
+                      entity: toGameEntityId(targetKind, ref.entityId),
+                    })}
                     confirmLabel={t('common.delete')}
                     loading={remove.isPending}
                     icon={<Trash2 className="size-3.5" aria-hidden />}
@@ -158,7 +167,7 @@ function EntityLookup({
             </div>
           )}
           {(update.error || remove.error) && (
-            <p className="mt-2 text-sm text-red-300">
+            <p className="mt-2 text-sm text-red-500">
               {describeError(update.error ?? remove.error, t)}
             </p>
           )}
@@ -215,8 +224,8 @@ function ValuesTable({
   const hasNext = rows.length >= query.size;
 
   return (
-    <section className="card overflow-hidden">
-      <div className="flex flex-wrap items-end gap-3 border-b border-white/[0.06] p-4">
+    <section className="surface overflow-hidden">
+      <div className="flex flex-wrap items-end gap-3 border-b border-line p-4">
         <Field label={t('explorer.orderBy')} className="w-36">
           {(id) => (
             <Select
@@ -227,7 +236,7 @@ function ValuesTable({
               }
             >
               {(['value', 'creation_time', 'update_time'] as const).map((option) => (
-                <option key={option} value={option} className="bg-night-900">
+                <option key={option} value={option} className="bg-white">
                   {t(`explorer.orderOptions.${option}`)}
                 </option>
               ))}
@@ -242,7 +251,7 @@ function ValuesTable({
               onChange={(event) => setOption('orderDir', event.target.value as 'asc' | 'desc')}
             >
               {(['desc', 'asc'] as const).map((option) => (
-                <option key={option} value={option} className="bg-night-900">
+                <option key={option} value={option} className="bg-white">
                   {t(`explorer.directions.${option}`)}
                 </option>
               ))}
@@ -257,14 +266,14 @@ function ValuesTable({
               onChange={(event) => setOption('size', Number(event.target.value))}
             >
               {PAGE_SIZES.map((size) => (
-                <option key={size} value={size} className="bg-night-900">
+                <option key={size} value={size} className="bg-white">
                   {size}
                 </option>
               ))}
             </Select>
           )}
         </Field>
-        <p className="ml-auto pb-2 text-sm text-sky-200/60">
+        <p className="ml-auto pb-2 text-sm text-slate-500">
           {count.data ? t('explorer.total', { count: count.data.count }) : null}
         </p>
       </div>
@@ -282,7 +291,7 @@ function ValuesTable({
           <table
             className={clsx('w-full text-left text-sm', values.isPlaceholderData && 'opacity-60')}
           >
-            <thead className="text-xs text-sky-200/40">
+            <thead className="text-xs text-slate-400">
               <tr>
                 <th className="px-4 py-2.5 font-semibold">{t('explorer.entity')}</th>
                 <th className="px-4 py-2.5 font-semibold">{t('explorer.value')}</th>
@@ -295,16 +304,16 @@ function ValuesTable({
                 <th className="px-4 py-2.5" />
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/[0.05]">
+            <tbody className="divide-y divide-line">
               {rows.map((row) => {
                 const ref: EntityRef = { scope, targetKind, entityId: row.entityId };
                 return (
-                  <tr key={row.entityId} className="hover:bg-white/[0.02]">
+                  <tr key={row.entityId} className="hover:bg-sky-50/50">
                     <td className="px-4 py-2.5">
-                      <span className="font-mono text-sky-100/80">#{row.entityId}</span>
-                      {row.name && (
-                        <span className="ml-2 font-semibold text-white">{row.name}</span>
-                      )}
+                      <span className="font-mono text-slate-600">
+                        #{toGameEntityId(targetKind, row.entityId)}
+                      </span>
+                      {row.name && <span className="ml-2 font-semibold text-ink">{row.name}</span>}
                     </td>
                     <td className="px-4 py-2.5">
                       <ValueEditor
@@ -314,17 +323,20 @@ function ValuesTable({
                         onSave={(value) => update.mutate({ ref, value })}
                       />
                     </td>
-                    <td className="hidden px-4 py-2.5 text-sky-200/60 md:table-cell">
+                    <td className="hidden px-4 py-2.5 text-slate-500 md:table-cell">
                       {formatDate(row.updatedAt)}
                     </td>
-                    <td className="hidden px-4 py-2.5 text-sky-200/60 lg:table-cell">
+                    <td className="hidden px-4 py-2.5 text-slate-500 lg:table-cell">
                       {formatDate(row.createdAt)}
                     </td>
                     <td className="px-4 py-2.5 text-right">
                       {client.hasWriteKey && (
                         <ConfirmButton
                           size="sm"
-                          question={t('explorer.deleteConfirm', { variable, entity: row.entityId })}
+                          question={t('explorer.deleteConfirm', {
+                            variable,
+                            entity: toGameEntityId(targetKind, row.entityId),
+                          })}
                           confirmLabel={t('common.delete')}
                           icon={<Trash2 className="size-3.5" aria-hidden />}
                           onConfirm={() => remove.mutate(ref)}
@@ -342,12 +354,12 @@ function ValuesTable({
       )}
 
       {(update.error || remove.error) && (
-        <p className="px-4 pb-3 text-sm text-red-300">
+        <p className="px-4 pb-3 text-sm text-red-500">
           {describeError(update.error ?? remove.error, t)}
         </p>
       )}
 
-      <div className="flex items-center justify-between border-t border-white/[0.06] px-4 py-3">
+      <div className="flex items-center justify-between border-t border-line px-4 py-3">
         <Button
           variant="ghost"
           size="sm"
@@ -357,7 +369,7 @@ function ValuesTable({
         >
           {t('explorer.previous')}
         </Button>
-        <span className="text-xs text-sky-200/40">{t('explorer.page', { page: query.page })}</span>
+        <span className="text-xs text-slate-400">{t('explorer.page', { page: query.page })}</span>
         <Button
           variant="ghost"
           size="sm"
@@ -389,12 +401,12 @@ function GlobalValue({ variable }: { variable: string }) {
   });
 
   return (
-    <section className="card flex flex-wrap items-center gap-4 p-5">
-      <span className="font-mono text-sm text-sky-100/80">{variable}</span>
+    <section className="surface flex flex-wrap items-center gap-4 p-5">
+      <span className="font-mono text-sm text-slate-600">{variable}</span>
       {value.isPending ? (
         <Spinner />
       ) : value.error ? (
-        <p className="text-sm text-red-300">{describeError(value.error, t)}</p>
+        <p className="text-sm text-red-500">{describeError(value.error, t)}</p>
       ) : (
         <ValueEditor
           value={value.data.value}
@@ -407,7 +419,7 @@ function GlobalValue({ variable }: { variable: string }) {
         <PinToggle scope="global" variable={variable} />
       </div>
       {update.error && (
-        <p className="w-full text-sm text-red-300">{describeError(update.error, t)}</p>
+        <p className="w-full text-sm text-red-500">{describeError(update.error, t)}</p>
       )}
     </section>
   );
@@ -450,7 +462,7 @@ export function ExplorerTab() {
 
   return (
     <div className="flex flex-col gap-4">
-      <form onSubmit={submit} className="card flex flex-wrap items-end gap-3 p-4">
+      <form onSubmit={submit} className="surface flex flex-wrap items-end gap-3 p-4">
         <Field label={t('explorer.scope')} className="w-36">
           {(id) => (
             <Select
@@ -459,7 +471,7 @@ export function ExplorerTab() {
               onChange={(event) => update({ scope: event.target.value, kind: null, entity: null })}
             >
               {SCOPES.map((option) => (
-                <option key={option} value={option} className="bg-night-900">
+                <option key={option} value={option} className="bg-white">
                   {t(`scopes.${option}`)}
                 </option>
               ))}
@@ -494,7 +506,7 @@ export function ExplorerTab() {
                 onChange={(event) => update({ kind: event.target.value, entity: null })}
               >
                 {TARGET_KINDS_BY_SCOPE[scope].map((kind) => (
-                  <option key={kind} value={kind} className="bg-night-900">
+                  <option key={kind} value={kind} className="bg-white">
                     {t(`targetKinds.${kind}`)}
                   </option>
                 ))}
@@ -506,7 +518,7 @@ export function ExplorerTab() {
       </form>
 
       {!validVariable ? (
-        <div className="card">
+        <div className="surface">
           <EmptyState title={t('explorer.pick')} />
         </div>
       ) : scope === 'global' || !targetKind ? (

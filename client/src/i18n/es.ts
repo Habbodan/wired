@@ -9,54 +9,33 @@ export const es: Messages = {
     retry: 'Reintentar',
     refresh: 'Actualizar',
     back: 'Volver',
+    close: 'Cerrar',
     show: 'Mostrar',
     hide: 'Ocultar',
   },
   nav: {
     home: 'Inicio',
     workspaces: 'Espacios de trabajo',
-    docs: 'Documentación de la API',
+    recent: 'Recientes',
+    menu: 'Menú',
     source: 'Código fuente',
     signIn: 'Entrar con Habbodan',
     signOut: 'Cerrar sesión',
     language: 'Idioma',
-    signedInAs: 'Sesión iniciada como {{name}}',
   },
   footer: {
-    description:
-      'Un portal de código abierto para la API de variables Wired de Habbo. Consulta, edita y organiza las variables de tu sala desde la web.',
-    explore: 'Explorar',
-    project: 'Proyecto',
-    openSource: 'Código abierto en GitHub',
     disclaimer:
       'Habbodan es un fansite y no está afiliado, respaldado, patrocinado ni aprobado por Sulake.',
   },
   home: {
     subtitle:
       'Consulta, edita y organiza las variables Wired de tu sala desde cualquier dispositivo con las claves de tu complemento Web API.',
-    cta: 'Ir a los espacios de trabajo',
-    quickStart: {
-      title: 'Inicio rápido',
-      caption: 'Complemento Web API',
-      item: 'Trae tus claves de lectura y escritura',
-      itemCaption: 'Compatible con todos los hoteles',
-    },
-    featured: {
-      tag: 'Espacios de trabajo',
-      title: 'Variables de usuario, de furni y globales en un solo lugar',
-      body: 'Revisa valores, edita perfiles y fija lo importante',
-    },
-    docsCard: {
-      title: 'Documentación',
-      body: 'Todos los endpoints de variables Wired',
-    },
-    sourceCard: {
-      title: 'Desarrollado en abierto',
-      body: 'Lee el código o colabora',
-    },
+    cta: 'Crear un espacio de trabajo',
+    browse: 'Ver espacios de trabajo',
+    recent: 'Espacios de trabajo recientes',
+    viewAll: 'Ver todos',
     steps: {
       title: 'Cómo funciona',
-      subtitle: 'De la sala a la web en tres pasos.',
       one: {
         title: 'Consigue tus claves',
         body: 'Coloca el complemento Web API en tu sala y copia sus claves de lectura y escritura.',
@@ -79,8 +58,10 @@ export const es: Messages = {
     title: 'Espacios de trabajo',
     subtitle: 'Cada espacio de trabajo se conecta a una sala de un hotel.',
     new: 'Nuevo espacio de trabajo',
+    search: 'Buscar por nombre, sala u hotel',
+    noResults: 'Ningún espacio de trabajo coincide con la búsqueda.',
+    allHotels: 'Todos',
     room: 'Sala {{id}}',
-    updated: 'Actualizado el {{date}}',
     readKey: 'Lectura',
     writeKey: 'Escritura',
     empty: {
@@ -120,6 +101,34 @@ export const es: Messages = {
       name: 'Ponle un nombre al espacio de trabajo (hasta 48 caracteres).',
       roomId: 'Introduce un ID de sala válido.',
       key: 'Eso no parece una clave de Web API.',
+    },
+  },
+  wizard: {
+    steps: {
+      hotel: 'Hotel',
+      room: 'Sala',
+      keys: 'Claves',
+    },
+    titles: {
+      hotel: '¿En qué hotel está la sala?',
+      room: 'Ponle nombre y elige la sala',
+      keys: 'Añade las claves de la Web API',
+    },
+    stepOf: 'Paso {{current}} de {{total}}',
+    next: 'Continuar',
+  },
+  settings: {
+    general: {
+      title: 'General',
+      body: 'Nombre, sala y hotel de este espacio de trabajo.',
+    },
+    keys: {
+      title: 'Claves',
+      body: 'Las claves de lectura y escritura del complemento Web API de la sala.',
+    },
+    danger: {
+      title: 'Zona de peligro',
+      body: 'Eliminar un espacio de trabajo no se puede deshacer.',
     },
   },
   console: {
@@ -217,13 +226,6 @@ export const es: Messages = {
     deleteProfileConfirm: '¿Eliminar todas las variables guardadas de este perfil?',
   },
   tools: {
-    ids: {
-      title: 'Conversor de ID',
-      body: 'Los furnis de pared y los BC tienen en el juego un ID distinto al de la API.',
-      kind: 'Objetivo',
-      inGame: 'ID en el juego',
-      api: 'ID de la API',
-    },
     bulk: {
       title: 'Borrado masivo',
       body: 'Elimina todos los valores guardados de las variables seleccionadas. Las variables siguen configuradas.',

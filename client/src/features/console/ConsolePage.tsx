@@ -1,11 +1,14 @@
 import { Link, useParams, useSearchParams } from 'react-router';
 import { useTranslation } from 'react-i18next';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import {
   Activity,
   Compass,
+  Eye,
   LayoutGrid,
+  PencilLine,
   Settings,
+  TriangleAlert,
   UserSearch,
   Wrench,
   type LucideIcon,
@@ -13,8 +16,9 @@ import {
 import clsx from 'clsx';
 import { findHotel } from '@shared/hotels';
 import type { Workspace } from '@shared/wired';
-import { NightSky } from '@/components/NightSky';
-import { buttonClass, EmptyState, Pill, Spinner } from '@/components/ui';
+import { FurniStage } from '@/components/FurniStage';
+import { HotelFlag } from '@/components/HotelFlag';
+import { Badge, buttonClass, EmptyState, Spinner } from '@/components/ui';
 import { WiredFurni } from '@/components/WiredFurni';
 import { describeError } from '@/lib/errors';
 import { useWorkspace } from '@/features/workspaces/hooks';
@@ -34,6 +38,92 @@ const TAB_ICONS: Record<ConsoleTab, LucideIcon> = {
   activity: Activity,
 };
 
+function ConsoleHeader({ workspace }: { workspace: Workspace }) {
+  const { t } = useTranslation();
+  return (
+    <motion.header
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, ease: 'easeOut' }}
+      className="surface flex flex-col gap-5 rounded-3xl p-4 sm:flex-row sm:items-center sm:p-5"
+    >
+      <FurniStage
+        name="webApi"
+        size={64}
+        className="size-24 shrink-0 rounded-2xl border border-slate-100"
+        furniClassName="animate-float"
+      />
+      <div className="min-w-0 flex-1">
+        <p className="flex items-center gap-2 text-sm font-semibold text-sky-700/70">
+          <HotelFlag hotel={workspace.hotel} className="size-4" />
+          {findHotel(workspace.hotel)?.name}
+          <span className="text-sky-200">·</span>
+          {t('workspaces.room', { id: workspace.roomId })}
+        </p>
+        <h1 className="mt-1 truncate text-3xl font-bold tracking-tight text-ink">
+          {workspace.name}
+        </h1>
+        <div className="mt-2 flex flex-wrap gap-1.5">
+          {workspace.readKey && (
+            <Badge tone="sky">
+              <Eye className="size-3" aria-hidden />
+              {t('workspaces.readKey')}
+            </Badge>
+          )}
+          {workspace.writeKey && (
+            <Badge tone="amber">
+              <PencilLine className="size-3" aria-hidden />
+              {t('workspaces.writeKey')}
+            </Badge>
+          )}
+        </div>
+      </div>
+      <Link
+        to={`/w/${workspace.id}/settings`}
+        className={buttonClass('secondary', 'md', 'self-start sm:self-center')}
+      >
+        <Settings className="size-4" aria-hidden />
+        {t('console.settings')}
+      </Link>
+    </motion.header>
+  );
+}
+
+function TabBar({ tab, onChange }: { tab: ConsoleTab; onChange: (tab: ConsoleTab) => void }) {
+  const { t } = useTranslation();
+  return (
+    <nav role="tablist" className="glass flex gap-1 overflow-x-auto rounded-2xl p-1.5">
+      {CONSOLE_TABS.map((name) => {
+        const Icon = TAB_ICONS[name];
+        const active = tab === name;
+        return (
+          <button
+            key={name}
+            type="button"
+            role="tab"
+            aria-selected={active}
+            onClick={() => onChange(name)}
+            className={clsx(
+              'relative flex shrink-0 items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold transition-colors',
+              active ? 'text-sky-600' : 'text-sky-900/50 hover:bg-sky-50 hover:text-sky-700',
+            )}
+          >
+            {active && (
+              <motion.span
+                layoutId="console-tab"
+                className="absolute inset-0 rounded-xl bg-sky-100/80"
+                transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+              />
+            )}
+            <Icon className="relative size-4" aria-hidden />
+            <span className="relative">{t(`console.tabs.${name}`)}</span>
+          </button>
+        );
+      })}
+    </nav>
+  );
+}
+
 function Console({ workspace }: { workspace: Workspace }) {
   const { t } = useTranslation();
   const [params, setParams] = useSearchParams();
@@ -41,95 +131,53 @@ function Console({ workspace }: { workspace: Workspace }) {
 
   return (
     <ConsoleProvider workspace={workspace}>
-      <section className="relative min-h-[80vh]">
-        <NightSky className="h-[360px]" />
-        <div className="relative z-10 mx-auto max-w-6xl px-4 pt-16 pb-12 md:px-6 md:pt-20">
-          <motion.header
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mb-10 flex flex-col gap-6 md:flex-row md:items-end"
-          >
-            <div className="flex min-w-0 items-center gap-5">
-              <div className="glass flex size-20 shrink-0 items-center justify-center rounded-3xl">
-                <WiredFurni name="webApi" size={52} className="drop-shadow-xl" />
-              </div>
-              <div className="min-w-0">
-                <div className="mb-2 flex flex-wrap gap-2">
-                  <Pill>{findHotel(workspace.hotel)?.name}</Pill>
-                  <Pill>{t('workspaces.room', { id: workspace.roomId })}</Pill>
-                  {workspace.readKey && <Pill tone="sky">{t('workspaces.readKey')}</Pill>}
-                  {workspace.writeKey && <Pill tone="orange">{t('workspaces.writeKey')}</Pill>}
-                </div>
-                <h1 className="truncate text-4xl font-black tracking-tight text-white md:text-5xl">
-                  {workspace.name}
-                </h1>
-              </div>
-            </div>
-            <Link
-              to={`/w/${workspace.id}/settings`}
-              className={buttonClass('secondary', 'md', 'md:ml-auto')}
+      <div className="space-y-5">
+        <ConsoleHeader workspace={workspace} />
+
+        {!workspace.readKey ? (
+          <div className="surface rounded-3xl">
+            <EmptyState
+              icon={<WiredFurni name="webApi" size={56} />}
+              title={t('console.noReadKey')}
             >
-              <Settings className="size-4" />
-              {t('console.settings')}
-            </Link>
-          </motion.header>
+              <Link
+                to={`/w/${workspace.id}/settings`}
+                className={buttonClass('primary', 'md', 'mt-4')}
+              >
+                {t('console.settings')}
+              </Link>
+            </EmptyState>
+          </div>
+        ) : (
+          <>
+            {!workspace.writeKey && (
+              <p className="flex items-center gap-2.5 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm font-medium text-amber-700">
+                <TriangleAlert className="size-4 shrink-0" aria-hidden />
+                {t('console.readOnly')}
+              </p>
+            )}
 
-          {!workspace.readKey ? (
-            <div className="card">
-              <EmptyState
-                icon={<WiredFurni name="webApi" size={64} />}
-                title={t('console.noReadKey')}
-              />
-            </div>
-          ) : (
-            <div className="flex flex-col gap-6">
-              {!workspace.writeKey && (
-                <p className="rounded-2xl border border-habbo-orange/20 bg-habbo-orange/10 px-5 py-3 text-sm font-medium text-orange-200">
-                  {t('console.readOnly')}
-                </p>
-              )}
+            <TabBar tab={tab} onChange={(name) => setParams({ tab: name })} />
 
-              <nav role="tablist" className="glass flex gap-1 overflow-x-auto rounded-2xl p-1.5">
-                {CONSOLE_TABS.map((name) => {
-                  const Icon = TAB_ICONS[name];
-                  const active = tab === name;
-                  return (
-                    <button
-                      key={name}
-                      type="button"
-                      role="tab"
-                      aria-selected={active}
-                      onClick={() => setParams({ tab: name })}
-                      className={clsx(
-                        'relative flex shrink-0 items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold transition-colors',
-                        active ? 'text-white' : 'text-sky-200/60 hover:text-sky-100',
-                      )}
-                    >
-                      {active && (
-                        <motion.span
-                          layoutId="console-tab"
-                          className="absolute inset-0 rounded-xl bg-sky-500/20 ring-1 ring-sky-400/30"
-                          transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-                        />
-                      )}
-                      <Icon className={clsx('relative size-4', active && 'text-sky-300')} />
-                      <span className="relative">{t(`console.tabs.${name}`)}</span>
-                    </button>
-                  );
-                })}
-              </nav>
-
-              <div role="tabpanel">
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div
+                key={tab}
+                role="tabpanel"
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.2, ease: 'easeOut' }}
+              >
                 {tab === 'overview' && <OverviewTab />}
                 {tab === 'explorer' && <ExplorerTab key={params.get('variable') ?? ''} />}
                 {tab === 'profiles' && <ProfilesTab />}
                 {tab === 'tools' && <ToolsTab />}
                 {tab === 'activity' && <ActivityTab />}
-              </div>
-            </div>
-          )}
-        </div>
-      </section>
+              </motion.div>
+            </AnimatePresence>
+          </>
+        )}
+      </div>
     </ConsoleProvider>
   );
 }
@@ -149,17 +197,15 @@ export function ConsolePage() {
 
   if (!workspace.data) {
     return (
-      <div className="mx-auto max-w-xl px-4 py-32">
-        <div className="card">
-          <EmptyState
-            icon={<WiredFurni name="echo" size={64} />}
-            title={workspace.error ? describeError(workspace.error, t) : t('console.notFound')}
-          >
-            <Link to="/workspaces" className={buttonClass('secondary', 'sm')}>
-              {t('nav.workspaces')}
-            </Link>
-          </EmptyState>
-        </div>
+      <div className="surface mx-auto max-w-xl rounded-3xl">
+        <EmptyState
+          icon={<WiredFurni name="echo" size={56} />}
+          title={workspace.error ? describeError(workspace.error, t) : t('console.notFound')}
+        >
+          <Link to="/workspaces" className={buttonClass('secondary', 'md', 'mt-4')}>
+            {t('nav.workspaces')}
+          </Link>
+        </EmptyState>
       </div>
     );
   }

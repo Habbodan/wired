@@ -9,54 +9,33 @@ export const it: Messages = {
     retry: 'Riprova',
     refresh: 'Aggiorna',
     back: 'Indietro',
+    close: 'Chiudi',
     show: 'Mostra',
     hide: 'Nascondi',
   },
   nav: {
     home: 'Home',
     workspaces: 'Aree di lavoro',
-    docs: 'Documentazione API',
+    recent: 'Recenti',
+    menu: 'Menu',
     source: 'Codice sorgente',
     signIn: 'Accedi con Habbodan',
     signOut: 'Esci',
     language: 'Lingua',
-    signedInAs: 'Accesso eseguito come {{name}}',
   },
   footer: {
-    description:
-      'Un portale open source per l’API delle variabili Wired di Habbo. Leggi, modifica e organizza le variabili della tua stanza dal web.',
-    explore: 'Esplora',
-    project: 'Progetto',
-    openSource: 'Open source su GitHub',
     disclaimer:
       'Habbodan è un fansite e non è affiliato, sostenuto, sponsorizzato né approvato da Sulake.',
   },
   home: {
     subtitle:
       'Leggi, modifica e organizza le variabili Wired della tua stanza da qualsiasi dispositivo, con le chiavi del tuo add-on Web API.',
-    cta: 'Vai alle aree di lavoro',
-    quickStart: {
-      title: 'Avvio rapido',
-      caption: 'Add-on Web API',
-      item: 'Porta le tue chiavi di lettura e scrittura',
-      itemCaption: 'Tutti gli hotel sono supportati',
-    },
-    featured: {
-      tag: 'Aree di lavoro',
-      title: 'Variabili utente, furni e globali in un unico posto',
-      body: 'Sfoglia i valori, modifica i profili e fissa ciò che conta',
-    },
-    docsCard: {
-      title: 'Documentazione API',
-      body: 'Tutti gli endpoint delle variabili Wired',
-    },
-    sourceCard: {
-      title: 'Sviluppato apertamente',
-      body: 'Leggi il codice o contribuisci',
-    },
+    cta: 'Crea un’area di lavoro',
+    browse: 'Sfoglia le aree di lavoro',
+    recent: 'Aree di lavoro recenti',
+    viewAll: 'Vedi tutte',
     steps: {
       title: 'Come funziona',
-      subtitle: 'Dalla stanza al web in tre passaggi.',
       one: {
         title: 'Prendi le chiavi',
         body: 'Metti l’add-on Web API nella tua stanza e copia le sue chiavi di lettura e scrittura.',
@@ -79,8 +58,10 @@ export const it: Messages = {
     title: 'Aree di lavoro',
     subtitle: 'Ogni area di lavoro è collegata a una stanza di un hotel.',
     new: 'Nuova area di lavoro',
+    search: 'Cerca per nome, stanza o hotel',
+    noResults: 'Nessuna area di lavoro corrisponde alla ricerca.',
+    allHotels: 'Tutti',
     room: 'Stanza {{id}}',
-    updated: 'Aggiornata il {{date}}',
     readKey: 'Lettura',
     writeKey: 'Scrittura',
     empty: {
@@ -121,6 +102,34 @@ export const it: Messages = {
       name: 'Dai un nome all’area di lavoro (massimo 48 caratteri).',
       roomId: 'Inserisci un ID stanza valido.',
       key: 'Non sembra una chiave Web API.',
+    },
+  },
+  wizard: {
+    steps: {
+      hotel: 'Hotel',
+      room: 'Stanza',
+      keys: 'Chiavi',
+    },
+    titles: {
+      hotel: 'In quale hotel si trova la stanza?',
+      room: 'Dai un nome e scegli la stanza',
+      keys: 'Aggiungi le chiavi Web API',
+    },
+    stepOf: 'Passo {{current}} di {{total}}',
+    next: 'Continua',
+  },
+  settings: {
+    general: {
+      title: 'Generale',
+      body: 'Nome, stanza e hotel di quest’area di lavoro.',
+    },
+    keys: {
+      title: 'Chiavi',
+      body: 'Le chiavi di lettura e scrittura dell’add-on Web API della stanza.',
+    },
+    danger: {
+      title: 'Zona pericolosa',
+      body: 'L’eliminazione di un’area di lavoro non si può annullare.',
     },
   },
   console: {
@@ -219,13 +228,6 @@ export const it: Messages = {
     deleteProfileConfirm: 'Eliminare tutte le variabili salvate di questo profilo?',
   },
   tools: {
-    ids: {
-      title: 'Convertitore di ID',
-      body: 'I furni da parete e i furni BC hanno nel gioco un ID diverso da quello dell’API.',
-      kind: 'Destinazione',
-      inGame: 'ID nel gioco',
-      api: 'ID API',
-    },
     bulk: {
       title: 'Eliminazione di massa',
       body: 'Rimuove tutti i valori salvati delle variabili selezionate. Le variabili restano configurate.',

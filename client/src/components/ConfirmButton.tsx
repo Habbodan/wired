@@ -42,7 +42,7 @@ export function ConfirmButton({
 
   return (
     <div role="alertdialog" className="flex flex-wrap items-center gap-2">
-      <span className="text-sm text-red-200">{question}</span>
+      <span className="text-sm font-medium text-red-500">{question}</span>
       <Button
         variant="danger"
         size={size}

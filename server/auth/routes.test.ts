@@ -9,7 +9,7 @@ function fakeOAuth(): OAuthClient {
   return {
     authorizationUrl: ({ state, codeChallenge }) =>
       `https://id.test/oauth/authorize?state=${state}&code_challenge=${codeChallenge}`,
-    exchangeCode: vi.fn(async () => ({ habbodanId: 7, username: 'Eser', hotel: 'tr' })),
+    exchangeCode: vi.fn(async () => ({ habbodanId: 7, username: 'Frank', hotel: 'tr' })),
   };
 }
 

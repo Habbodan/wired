@@ -9,54 +9,33 @@ export const tr: Messages = {
     retry: 'Tekrar dene',
     refresh: 'Yenile',
     back: 'Geri',
+    close: 'Kapat',
     show: 'Göster',
     hide: 'Gizle',
   },
   nav: {
     home: 'Ana sayfa',
     workspaces: 'Çalışma alanları',
-    docs: 'API dokümanı',
+    recent: 'Son kullanılanlar',
+    menu: 'Menü',
     source: 'Kaynak kod',
     signIn: 'Habbodan ile giriş yap',
     signOut: 'Çıkış yap',
     language: 'Dil',
-    signedInAs: '{{name}} olarak giriş yapıldı',
   },
   footer: {
-    description:
-      'Habbo Wired Değişkenleri API’si için açık kaynaklı portal. Odanın değişkenlerini web’den oku, düzenle ve yönet.',
-    explore: 'Keşfet',
-    project: 'Proje',
-    openSource: 'GitHub’da açık kaynak',
     disclaimer:
       'Habbodan bir hayran sitesidir; Sulake ile bağlantılı değildir, Sulake tarafından desteklenmez veya onaylanmaz.',
   },
   home: {
     subtitle:
       'Odandaki Wired değişkenlerini Web API eklentisinin anahtarlarıyla her cihazdan oku, düzenle ve yönet.',
-    cta: 'Çalışma alanlarına git',
-    quickStart: {
-      title: 'Hızlı başlangıç',
-      caption: 'Web API eklentisi',
-      item: 'Okuma ve yazma anahtarlarını getir',
-      itemCaption: 'Tüm oteller destekleniyor',
-    },
-    featured: {
-      tag: 'Çalışma alanları',
-      title: 'Kullanıcı, mobi ve global değişkenler tek yerde',
-      body: 'Değerlere göz at, profilleri düzenle, önemlileri sabitle',
-    },
-    docsCard: {
-      title: 'API dokümanı',
-      body: 'Tüm Wired Değişkenleri endpoint’leri',
-    },
-    sourceCard: {
-      title: 'Açık geliştiriliyor',
-      body: 'Kodu incele ya da katkı yap',
-    },
+    cta: 'Çalışma alanı oluştur',
+    browse: 'Çalışma alanlarına göz at',
+    recent: 'Son çalışma alanları',
+    viewAll: 'Tümünü gör',
     steps: {
       title: 'Nasıl çalışır?',
-      subtitle: 'Odadan web’e üç adımda.',
       one: {
         title: 'Anahtarlarını al',
         body: 'Odana Web API eklentisini koy, okuma ve yazma anahtarlarını kopyala.',
@@ -79,8 +58,10 @@ export const tr: Messages = {
     title: 'Çalışma alanları',
     subtitle: 'Her çalışma alanı bir oteldeki tek bir odaya bağlanır.',
     new: 'Yeni çalışma alanı',
+    search: 'İsim, oda veya otel ara',
+    noResults: 'Aramanla eşleşen çalışma alanı yok.',
+    allHotels: 'Tümü',
     room: 'Oda {{id}}',
-    updated: '{{date}} güncellendi',
     readKey: 'Okuma',
     writeKey: 'Yazma',
     empty: {
@@ -120,6 +101,34 @@ export const tr: Messages = {
       name: 'Bir ad ver (en fazla 48 karakter).',
       roomId: 'Geçerli bir oda ID’si gir.',
       key: 'Bu bir Web API anahtarına benzemiyor.',
+    },
+  },
+  wizard: {
+    steps: {
+      hotel: 'Otel',
+      room: 'Oda',
+      keys: 'Anahtarlar',
+    },
+    titles: {
+      hotel: 'Oda hangi otelde?',
+      room: 'Çalışma alanına isim ver ve odayı seç',
+      keys: 'Web API anahtarlarını ekle',
+    },
+    stepOf: 'Adım {{current}} / {{total}}',
+    next: 'Devam',
+  },
+  settings: {
+    general: {
+      title: 'Genel',
+      body: 'Çalışma alanının adı, odası ve oteli.',
+    },
+    keys: {
+      title: 'Anahtarlar',
+      body: 'Odadaki Web API eklentisinin okuma ve yazma anahtarları.',
+    },
+    danger: {
+      title: 'Tehlikeli bölge',
+      body: 'Silinen çalışma alanı geri getirilemez.',
     },
   },
   console: {
@@ -217,13 +226,6 @@ export const tr: Messages = {
     deleteProfileConfirm: 'Bu profildeki tüm kayıtlı değişkenler silinsin mi?',
   },
   tools: {
-    ids: {
-      title: 'ID dönüştürücü',
-      body: 'Duvar ve BC mobilerinin oyundaki ID’si API’deki ID’den farklıdır.',
-      kind: 'Hedef',
-      inGame: 'Oyun içi ID',
-      api: 'API ID',
-    },
     bulk: {
       title: 'Toplu silme',
       body: 'Seçilen değişkenlerin kayıtlı tüm değerlerini siler. Değişkenlerin kendisi yerinde kalır.',

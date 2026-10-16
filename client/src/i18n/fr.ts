@@ -9,54 +9,33 @@ export const fr: Messages = {
     retry: 'Réessayer',
     refresh: 'Actualiser',
     back: 'Retour',
+    close: 'Fermer',
     show: 'Afficher',
     hide: 'Masquer',
   },
   nav: {
     home: 'Accueil',
     workspaces: 'Espaces de travail',
-    docs: 'Doc de l’API',
+    recent: 'Récents',
+    menu: 'Menu',
     source: 'Code source',
     signIn: 'Se connecter avec Habbodan',
     signOut: 'Se déconnecter',
     language: 'Langue',
-    signedInAs: 'Connecté en tant que {{name}}',
   },
   footer: {
-    description:
-      'Un portail open source pour l’API des variables Wired de Habbo. Consulte, modifie et organise les variables de ton appart depuis le web.',
-    explore: 'Explorer',
-    project: 'Projet',
-    openSource: 'Open source sur GitHub',
     disclaimer:
       'Habbodan est un fansite et n’est ni affilié, ni soutenu, ni sponsorisé, ni approuvé par Sulake.',
   },
   home: {
     subtitle:
       'Consulte, modifie et organise les variables Wired de ton appart depuis n’importe quel appareil, avec les clés de ton add-on Web API.',
-    cta: 'Ouvrir les espaces de travail',
-    quickStart: {
-      title: 'Démarrage rapide',
-      caption: 'Add-on Web API',
-      item: 'Apporte tes clés de lecture et d’écriture',
-      itemCaption: 'Tous les hôtels sont pris en charge',
-    },
-    featured: {
-      tag: 'Espaces de travail',
-      title: 'Variables d’utilisateur, de mobi et globales au même endroit',
-      body: 'Parcours les valeurs, modifie les profils, épingle l’essentiel',
-    },
-    docsCard: {
-      title: 'Doc de l’API',
-      body: 'Tous les endpoints des variables Wired',
-    },
-    sourceCard: {
-      title: 'Développé en open source',
-      body: 'Lis le code ou contribue',
-    },
+    cta: 'Créer un espace de travail',
+    browse: 'Voir les espaces de travail',
+    recent: 'Espaces de travail récents',
+    viewAll: 'Tout voir',
     steps: {
       title: 'Comment ça marche',
-      subtitle: 'De l’appart au web en trois étapes.',
       one: {
         title: 'Récupère tes clés',
         body: 'Pose l’add-on Web API dans ton appart et copie ses clés de lecture et d’écriture.',
@@ -79,8 +58,10 @@ export const fr: Messages = {
     title: 'Espaces de travail',
     subtitle: 'Chaque espace de travail est relié à un appart dans un hôtel.',
     new: 'Nouvel espace de travail',
+    search: 'Rechercher par nom, appart ou hôtel',
+    noResults: 'Aucun espace de travail ne correspond.',
+    allHotels: 'Tous',
     room: 'Appart {{id}}',
-    updated: 'Mis à jour le {{date}}',
     readKey: 'Lecture',
     writeKey: 'Écriture',
     empty: {
@@ -120,6 +101,34 @@ export const fr: Messages = {
       name: 'Donne un nom à l’espace de travail (48 caractères maximum).',
       roomId: 'Saisis un ID d’appart valide.',
       key: 'Ça ne ressemble pas à une clé Web API.',
+    },
+  },
+  wizard: {
+    steps: {
+      hotel: 'Hôtel',
+      room: 'Appart',
+      keys: 'Clés',
+    },
+    titles: {
+      hotel: 'Dans quel hôtel se trouve l’appart ?',
+      room: 'Nomme l’espace et choisis l’appart',
+      keys: 'Ajoute les clés Web API',
+    },
+    stepOf: 'Étape {{current}} sur {{total}}',
+    next: 'Continuer',
+  },
+  settings: {
+    general: {
+      title: 'Général',
+      body: 'Nom, appart et hôtel de cet espace de travail.',
+    },
+    keys: {
+      title: 'Clés',
+      body: 'Les clés de lecture et d’écriture de l’add-on Web API de l’appart.',
+    },
+    danger: {
+      title: 'Zone sensible',
+      body: 'La suppression d’un espace de travail est définitive.',
     },
   },
   console: {
@@ -218,13 +227,6 @@ export const fr: Messages = {
     deleteProfileConfirm: 'Supprimer toutes les variables enregistrées de ce profil ?',
   },
   tools: {
-    ids: {
-      title: 'Convertisseur d’ID',
-      body: 'Les mobis muraux et les mobis BC n’ont pas le même ID dans le jeu et dans l’API.',
-      kind: 'Cible',
-      inGame: 'ID dans le jeu',
-      api: 'ID de l’API',
-    },
     bulk: {
       title: 'Suppression en masse',
       body: 'Supprime toutes les valeurs enregistrées des variables sélectionnées. Les variables elles-mêmes restent configurées.',

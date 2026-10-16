@@ -9,54 +9,33 @@ export const ptBR: Messages = {
     retry: 'Tentar de novo',
     refresh: 'Atualizar',
     back: 'Voltar',
+    close: 'Fechar',
     show: 'Mostrar',
     hide: 'Ocultar',
   },
   nav: {
     home: 'Início',
     workspaces: 'Espaços de trabalho',
-    docs: 'Documentação da API',
+    recent: 'Recentes',
+    menu: 'Menu',
     source: 'Código-fonte',
     signIn: 'Entrar com o Habbodan',
     signOut: 'Sair',
     language: 'Idioma',
-    signedInAs: 'Conectado como {{name}}',
   },
   footer: {
-    description:
-      'Um portal de código aberto para a API de variáveis Wired do Habbo. Veja, edite e organize as variáveis do seu quarto pela web.',
-    explore: 'Explorar',
-    project: 'Projeto',
-    openSource: 'Código aberto no GitHub',
     disclaimer:
       'O Habbodan é um fã-site e não é afiliado, endossado, patrocinado nem aprovado pela Sulake.',
   },
   home: {
     subtitle:
       'Veja, edite e organize as variáveis Wired do seu quarto em qualquer dispositivo, com as chaves do seu add-on Web API.',
-    cta: 'Abrir espaços de trabalho',
-    quickStart: {
-      title: 'Começo rápido',
-      caption: 'Add-on Web API',
-      item: 'Traga suas chaves de leitura e escrita',
-      itemCaption: 'Todos os hotéis são compatíveis',
-    },
-    featured: {
-      tag: 'Espaços de trabalho',
-      title: 'Variáveis de usuário, de mobi e globais em um só lugar',
-      body: 'Veja valores, edite perfis e fixe o que importa',
-    },
-    docsCard: {
-      title: 'Documentação da API',
-      body: 'Todos os endpoints de variáveis Wired',
-    },
-    sourceCard: {
-      title: 'Feito às claras',
-      body: 'Leia o código ou contribua',
-    },
+    cta: 'Criar um espaço de trabalho',
+    browse: 'Ver espaços de trabalho',
+    recent: 'Espaços de trabalho recentes',
+    viewAll: 'Ver todos',
     steps: {
       title: 'Como funciona',
-      subtitle: 'Do quarto para a web em três passos.',
       one: {
         title: 'Pegue suas chaves',
         body: 'Coloque o add-on Web API no seu quarto e copie as chaves de leitura e escrita.',
@@ -79,8 +58,10 @@ export const ptBR: Messages = {
     title: 'Espaços de trabalho',
     subtitle: 'Cada espaço de trabalho se conecta a um quarto de um hotel.',
     new: 'Novo espaço de trabalho',
+    search: 'Buscar por nome, quarto ou hotel',
+    noResults: 'Nenhum espaço de trabalho corresponde à busca.',
+    allHotels: 'Todos',
     room: 'Quarto {{id}}',
-    updated: 'Atualizado em {{date}}',
     readKey: 'Leitura',
     writeKey: 'Escrita',
     empty: {
@@ -120,6 +101,34 @@ export const ptBR: Messages = {
       name: 'Dê um nome ao espaço de trabalho (até 48 caracteres).',
       roomId: 'Digite um ID de quarto válido.',
       key: 'Isso não parece uma chave Web API.',
+    },
+  },
+  wizard: {
+    steps: {
+      hotel: 'Hotel',
+      room: 'Quarto',
+      keys: 'Chaves',
+    },
+    titles: {
+      hotel: 'Em qual hotel fica o quarto?',
+      room: 'Dê um nome e escolha o quarto',
+      keys: 'Adicione as chaves da Web API',
+    },
+    stepOf: 'Passo {{current}} de {{total}}',
+    next: 'Continuar',
+  },
+  settings: {
+    general: {
+      title: 'Geral',
+      body: 'Nome, quarto e hotel deste espaço de trabalho.',
+    },
+    keys: {
+      title: 'Chaves',
+      body: 'As chaves de leitura e escrita do add-on Web API do quarto.',
+    },
+    danger: {
+      title: 'Zona de perigo',
+      body: 'Excluir um espaço de trabalho não pode ser desfeito.',
     },
   },
   console: {
@@ -218,13 +227,6 @@ export const ptBR: Messages = {
     deleteProfileConfirm: 'Excluir todas as variáveis salvas deste perfil?',
   },
   tools: {
-    ids: {
-      title: 'Conversor de ID',
-      body: 'Mobis de parede e mobis BC têm no jogo um ID diferente do da API.',
-      kind: 'Alvo',
-      inGame: 'ID no jogo',
-      api: 'ID da API',
-    },
     bulk: {
       title: 'Exclusão em massa',
       body: 'Remove todos os valores salvos das variáveis selecionadas. As variáveis continuam configuradas.',

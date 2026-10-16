@@ -14,6 +14,7 @@ import {
 import { ConfirmButton } from '@/components/ConfirmButton';
 import { Button, EmptyState, Field, Input, Select, Spinner } from '@/components/ui';
 import { describeError } from '@/lib/errors';
+import { toApiEntityId, toGameEntityId } from '@/lib/wired/ids';
 import type { EntityProfile } from '@/lib/wired/types';
 import { useConsole } from './ConsoleContext';
 import { wiredKey } from './queries';
@@ -96,17 +97,22 @@ function ProfileEditor({ lookup, profile }: { lookup: Lookup; profile: EntityPro
     );
 
   return (
-    <section className="card overflow-hidden">
-      <header className="flex flex-wrap items-center gap-3 border-b border-white/[0.06] p-4">
+    <section className="surface overflow-hidden">
+      <header className="flex flex-wrap items-center gap-3 border-b border-line p-4">
         {profile.target ? (
           <p className="text-sm">
-            <span className="font-mono text-sky-200/60">#{profile.target.id}</span>
+            <span className="font-mono text-slate-500">
+              #
+              {target?.kind
+                ? toGameEntityId(target.kind, String(profile.target.id))
+                : profile.target.id}
+            </span>
             {profile.target.name && (
-              <span className="ml-2 font-bold text-white">{profile.target.name}</span>
+              <span className="ml-2 font-bold text-ink">{profile.target.name}</span>
             )}
           </p>
         ) : (
-          <p className="text-sm font-bold text-white">{t('profiles.modes.global')}</p>
+          <p className="text-sm font-bold text-ink">{t('profiles.modes.global')}</p>
         )}
         {canEdit && target?.scope === 'user' && (
           <div className="ml-auto">
@@ -127,7 +133,7 @@ function ProfileEditor({ lookup, profile }: { lookup: Lookup; profile: EntityPro
       {names.length === 0 ? (
         <EmptyState title={t('profiles.noVariables')} />
       ) : (
-        <ul className="divide-y divide-white/[0.05]">
+        <ul className="divide-y divide-line">
           {names.map((name) => {
             const variable = profile.variables[name];
             if (!variable) return null;
@@ -138,7 +144,7 @@ function ProfileEditor({ lookup, profile }: { lookup: Lookup; profile: EntityPro
                 <span
                   className={clsx(
                     'min-w-40 font-mono text-sm',
-                    removed ? 'text-red-300 line-through' : 'text-sky-100',
+                    removed ? 'text-red-500 line-through' : 'text-ink',
                   )}
                 >
                   {name}
@@ -158,11 +164,9 @@ function ProfileEditor({ lookup, profile }: { lookup: Lookup; profile: EntityPro
                     className="h-8 w-36 font-mono"
                   />
                 ) : (
-                  <span className="font-mono text-sm font-semibold text-white">
-                    {variable.value}
-                  </span>
+                  <span className="font-mono text-sm font-semibold text-ink">{variable.value}</span>
                 )}
-                <span className="hidden text-xs text-sky-200/40 sm:inline">
+                <span className="hidden text-xs text-slate-400 sm:inline">
                   {formatDate(variable.update_time)}
                 </span>
                 {canEdit && (
@@ -177,7 +181,7 @@ function ProfileEditor({ lookup, profile }: { lookup: Lookup; profile: EntityPro
                           : { ...current, [name]: null },
                       )
                     }
-                    className="ml-auto flex items-center gap-1 rounded-md px-2 py-1 text-xs font-semibold text-sky-200/60 hover:bg-white/[0.06] hover:text-white"
+                    className="ml-auto flex items-center gap-1 rounded-md px-2 py-1 text-xs font-semibold text-slate-500 hover:bg-sky-50 hover:text-sky-700"
                   >
                     {removed ? (
                       <RotateCcw className="size-3.5" aria-hidden />
@@ -194,14 +198,14 @@ function ProfileEditor({ lookup, profile }: { lookup: Lookup; profile: EntityPro
       )}
 
       {(save.error || removeProfile.error) && (
-        <p className="px-4 pt-3 text-sm text-red-300">
+        <p className="px-4 pt-3 text-sm text-red-500">
           {describeError(save.error ?? removeProfile.error, t)}
         </p>
       )}
 
       {changes.length > 0 && (
-        <footer className="sticky bottom-0 flex flex-wrap items-center gap-3 border-t border-white/[0.06] bg-night-900/95 p-4 backdrop-blur">
-          <span className="text-sm text-habbo-orange">
+        <footer className="sticky bottom-0 flex flex-wrap items-center gap-3 border-t border-line bg-white/95 p-4 backdrop-blur">
+          <span className="text-sm text-amber-600">
             {t('profiles.pending', { count: changes.length })}
           </span>
           <div className="ml-auto flex gap-2">
@@ -256,20 +260,21 @@ export function ProfilesTab() {
     event.preventDefault();
     if (mode === 'userName' && name.trim()) setLookup({ mode, name: name.trim() });
     if (mode === 'userUniqueId' && uniqueId.trim()) setLookup({ mode, uniqueId: uniqueId.trim() });
-    if (mode === 'entity' && entityIdSchema.safeParse(entityId).success) {
-      setLookup({ mode, scope: scopeOfKind(kind), kind, entityId });
+    const apiId = mode === 'entity' ? toApiEntityId(kind, entityId) : null;
+    if (mode === 'entity' && apiId && entityIdSchema.safeParse(apiId).success) {
+      setLookup({ mode, scope: scopeOfKind(kind), kind, entityId: apiId });
     }
     if (mode === 'global') setLookup({ mode });
   };
 
   return (
     <div className="flex flex-col gap-4">
-      <form onSubmit={submit} className="card flex flex-wrap items-end gap-3 p-4">
+      <form onSubmit={submit} className="surface flex flex-wrap items-end gap-3 p-4">
         <Field label={t('profiles.mode')} className="w-52">
           {(id) => (
             <Select id={id} value={mode} onChange={(event) => setMode(event.target.value as Mode)}>
               {(['userName', 'userUniqueId', 'entity', 'global'] as const).map((option) => (
-                <option key={option} value={option} className="bg-night-900">
+                <option key={option} value={option} className="bg-white">
                   {t(`profiles.modes.${option}`)}
                 </option>
               ))}
@@ -312,7 +317,7 @@ export function ProfilesTab() {
                   onChange={(event) => setKind(event.target.value as TargetKind)}
                 >
                   {ENTITY_KINDS.map((option) => (
-                    <option key={option} value={option} className="bg-night-900">
+                    <option key={option} value={option} className="bg-white">
                       {t(`targetKinds.${option}`)}
                     </option>
                   ))}
@@ -324,7 +329,7 @@ export function ProfilesTab() {
                 <Input
                   id={id}
                   value={entityId}
-                  onChange={(event) => setEntityId(event.target.value.replace(/\D/g, ''))}
+                  onChange={(event) => setEntityId(event.target.value.replace(/[^\d-]/g, ''))}
                   inputMode="numeric"
                 />
               )}
@@ -343,7 +348,7 @@ export function ProfilesTab() {
             <Spinner />
           </div>
         ) : profile.error ? (
-          <div className="card">
+          <div className="surface">
             <EmptyState title={describeError(profile.error, t)} />
           </div>
         ) : (

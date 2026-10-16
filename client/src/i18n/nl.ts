@@ -9,54 +9,33 @@ export const nl: Messages = {
     retry: 'Opnieuw proberen',
     refresh: 'Vernieuwen',
     back: 'Terug',
+    close: 'Sluiten',
     show: 'Tonen',
     hide: 'Verbergen',
   },
   nav: {
     home: 'Home',
     workspaces: 'Werkruimtes',
-    docs: 'API-documentatie',
+    recent: 'Recent',
+    menu: 'Menu',
     source: 'Broncode',
     signIn: 'Inloggen met Habbodan',
     signOut: 'Uitloggen',
     language: 'Taal',
-    signedInAs: 'Ingelogd als {{name}}',
   },
   footer: {
-    description:
-      'Een open-sourceportaal voor de Habbo Wired Variables API. Bekijk, bewerk en organiseer de variabelen van je kamer via het web.',
-    explore: 'Ontdekken',
-    project: 'Project',
-    openSource: 'Open source op GitHub',
     disclaimer:
       'Habbodan is een fansite en is niet gelieerd aan, gesteund, gesponsord of goedgekeurd door Sulake.',
   },
   home: {
     subtitle:
       'Bekijk, bewerk en organiseer de Wired-variabelen van je kamer op elk apparaat, met de sleutels uit je Web API-add-on.',
-    cta: 'Naar de werkruimtes',
-    quickStart: {
-      title: 'Snel aan de slag',
-      caption: 'Web API-add-on',
-      item: 'Neem je lees- en schrijfsleutel mee',
-      itemCaption: 'Alle hotels worden ondersteund',
-    },
-    featured: {
-      tag: 'Werkruimtes',
-      title: 'Gebruikers-, meubi- en globale variabelen op één plek',
-      body: 'Blader door waarden, bewerk profielen en zet belangrijke zaken vast',
-    },
-    docsCard: {
-      title: 'API-documentatie',
-      body: 'Alle endpoints voor Wired-variabelen',
-    },
-    sourceCard: {
-      title: 'Open ontwikkeld',
-      body: 'Lees de code of doe mee',
-    },
+    cta: 'Werkruimte maken',
+    browse: 'Werkruimtes bekijken',
+    recent: 'Recente werkruimtes',
+    viewAll: 'Alles bekijken',
     steps: {
       title: 'Zo werkt het',
-      subtitle: 'In drie stappen van je kamer naar het web.',
       one: {
         title: 'Haal je sleutels',
         body: 'Zet de Web API-add-on in je kamer en kopieer de lees- en schrijfsleutel.',
@@ -79,8 +58,10 @@ export const nl: Messages = {
     title: 'Werkruimtes',
     subtitle: 'Elke werkruimte is gekoppeld aan één kamer in één hotel.',
     new: 'Nieuwe werkruimte',
+    search: 'Zoek op naam, kamer of hotel',
+    noResults: 'Geen werkruimtes gevonden.',
+    allHotels: 'Alle',
     room: 'Kamer {{id}}',
-    updated: 'Bijgewerkt op {{date}}',
     readKey: 'Lezen',
     writeKey: 'Schrijven',
     empty: {
@@ -121,6 +102,34 @@ export const nl: Messages = {
       name: 'Geef de werkruimte een naam (maximaal 48 tekens).',
       roomId: 'Vul een geldige kamer-ID in.',
       key: 'Dat lijkt geen Web API-sleutel.',
+    },
+  },
+  wizard: {
+    steps: {
+      hotel: 'Hotel',
+      room: 'Kamer',
+      keys: 'Sleutels',
+    },
+    titles: {
+      hotel: 'In welk hotel staat de kamer?',
+      room: 'Geef de werkruimte een naam en kies de kamer',
+      keys: 'Voeg de Web API-sleutels toe',
+    },
+    stepOf: 'Stap {{current}} van {{total}}',
+    next: 'Doorgaan',
+  },
+  settings: {
+    general: {
+      title: 'Algemeen',
+      body: 'Naam, kamer en hotel van deze werkruimte.',
+    },
+    keys: {
+      title: 'Sleutels',
+      body: 'De lees- en schrijfsleutel uit de Web API-add-on van de kamer.',
+    },
+    danger: {
+      title: 'Gevarenzone',
+      body: 'Een werkruimte verwijderen kan niet ongedaan worden gemaakt.',
     },
   },
   console: {
@@ -219,13 +228,6 @@ export const nl: Messages = {
     deleteProfileConfirm: 'Alle opgeslagen variabelen van dit profiel verwijderen?',
   },
   tools: {
-    ids: {
-      title: 'ID-omzetter',
-      body: 'Wandmeubi en BC-meubi hebben in het spel een andere ID dan in de API.',
-      kind: 'Doel',
-      inGame: 'ID in het spel',
-      api: 'API-ID',
-    },
     bulk: {
       title: 'Bulk verwijderen',
       body: 'Verwijdert alle opgeslagen waarden van de gekozen variabelen. De variabelen zelf blijven ingesteld.',

@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import { createWiredClient, MissingKeyError, WiredApiError } from './client';
 import { RoomRateLimiter } from './rateLimiter';
-import { apiToInGameId, inGameToApiId } from './ids';
+import { apiToInGameId, inGameToApiId, toApiEntityId, toGameEntityId } from './ids';
 
 function jsonResponse(status: number, body?: unknown) {
   return new Response(body === undefined ? null : JSON.stringify(body), {
@@ -79,12 +79,12 @@ describe('createWiredClient', () => {
 
   it('normalises profile targets', async () => {
     const { client } = setup(
-      jsonResponse(200, { variables: { hp: { value: '3' } }, user: { id: 9, name: 'Eser' } }),
+      jsonResponse(200, { variables: { hp: { value: '3' } }, user: { id: 9, name: 'Frank' } }),
     );
 
-    const profile = await client.findUserProfile({ name: 'Eser' });
+    const profile = await client.findUserProfile({ name: 'Frank' });
 
-    expect(profile.target).toEqual({ id: 9, name: 'Eser' });
+    expect(profile.target).toEqual({ id: 9, name: 'Frank' });
     expect(profile.variables.hp?.value).toBe('3');
   });
 });
@@ -97,5 +97,20 @@ describe('id conversion', () => {
   ] as const)('converts %s ids both ways', (kind, inGame, api) => {
     expect(inGameToApiId(kind, inGame)).toBe(api);
     expect(apiToInGameId(kind, api)).toBe(inGame);
+  });
+
+  it('turns in-game ids from the lookup forms into api ids', () => {
+    expect(toApiEntityId('wall-items', '-77')).toBe('77');
+    expect(toApiEntityId('furni', '812')).toBe('812');
+    expect(toApiEntityId('users', '9')).toBe('9');
+    expect(toApiEntityId('users', '-9')).toBeNull();
+    expect(toApiEntityId('wall-items', '77')).toBeNull();
+    expect(toApiEntityId('furni', 'abc')).toBeNull();
+  });
+
+  it('shows api ids as they appear in game', () => {
+    expect(toGameEntityId('wall-items', '77')).toBe('-77');
+    expect(toGameEntityId('furni-bc', '10')).toBe(String(0x7fffffff - 0xffff + 10));
+    expect(toGameEntityId('users', '9')).toBe('9');
   });
 });
