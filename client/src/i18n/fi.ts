@@ -31,7 +31,6 @@ export const fi: Messages = {
     subtitle:
       'Lue, muokkaa ja järjestä huoneesi Wired-muuttujia millä tahansa laitteella Web API -lisäosan avaimilla.',
     cta: 'Luo työtila',
-    browse: 'Selaa työtiloja',
     recent: 'Viimeisimmät työtilat',
     viewAll: 'Näytä kaikki',
     steps: {

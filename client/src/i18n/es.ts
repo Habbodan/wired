@@ -31,7 +31,6 @@ export const es: Messages = {
     subtitle:
       'Consulta, edita y organiza las variables Wired de tu sala desde cualquier dispositivo con las claves de tu complemento Web API.',
     cta: 'Crear un espacio de trabajo',
-    browse: 'Ver espacios de trabajo',
     recent: 'Espacios de trabajo recientes',
     viewAll: 'Ver todos',
     steps: {

@@ -31,7 +31,6 @@ export const nl: Messages = {
     subtitle:
       'Bekijk, bewerk en organiseer de Wired-variabelen van je kamer op elk apparaat, met de sleutels uit je Web API-add-on.',
     cta: 'Werkruimte maken',
-    browse: 'Werkruimtes bekijken',
     recent: 'Recente werkruimtes',
     viewAll: 'Alles bekijken',
     steps: {

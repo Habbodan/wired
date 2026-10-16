@@ -31,7 +31,6 @@ export const it: Messages = {
     subtitle:
       'Leggi, modifica e organizza le variabili Wired della tua stanza da qualsiasi dispositivo, con le chiavi del tuo add-on Web API.',
     cta: 'Crea un’area di lavoro',
-    browse: 'Sfoglia le aree di lavoro',
     recent: 'Aree di lavoro recenti',
     viewAll: 'Vedi tutte',
     steps: {

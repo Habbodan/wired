@@ -51,12 +51,6 @@ function Hero() {
               {t('home.cta')}
               <ArrowRight className="size-4" aria-hidden />
             </Link>
-            <Link
-              to="/workspaces"
-              className="inline-flex h-12 items-center rounded-2xl border border-white/50 bg-white/25 px-6 font-bold text-sky-900 backdrop-blur-md transition-colors hover:bg-white/40"
-            >
-              {t('home.browse')}
-            </Link>
           </motion.div>
         </motion.div>
 

@@ -31,7 +31,6 @@ export const de: Messages = {
     subtitle:
       'Lies, bearbeite und organisiere die Wired-Variablen deines Raums von jedem Gerät aus – mit den Schlüsseln aus deinem Web-API-Add-on.',
     cta: 'Arbeitsbereich erstellen',
-    browse: 'Arbeitsbereiche ansehen',
     recent: 'Zuletzt verwendete Arbeitsbereiche',
     viewAll: 'Alle anzeigen',
     steps: {

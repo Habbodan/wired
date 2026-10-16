@@ -31,7 +31,6 @@ export const fr: Messages = {
     subtitle:
       'Consulte, modifie et organise les variables Wired de ton appart depuis n’importe quel appareil, avec les clés de ton add-on Web API.',
     cta: 'Créer un espace de travail',
-    browse: 'Voir les espaces de travail',
     recent: 'Espaces de travail récents',
     viewAll: 'Tout voir',
     steps: {

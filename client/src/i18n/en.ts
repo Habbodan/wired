@@ -29,7 +29,6 @@ export const en = {
     subtitle:
       'Read, edit and organise your room’s Wired variables from any device, with the keys from your Web API add-on.',
     cta: 'Create a workspace',
-    browse: 'Browse workspaces',
     recent: 'Recent workspaces',
     viewAll: 'View all',
     steps: {

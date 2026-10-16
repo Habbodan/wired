@@ -31,7 +31,6 @@ export const tr: Messages = {
     subtitle:
       'Odandaki Wired değişkenlerini Web API eklentisinin anahtarlarıyla her cihazdan oku, düzenle ve yönet.',
     cta: 'Çalışma alanı oluştur',
-    browse: 'Çalışma alanlarına göz at',
     recent: 'Son çalışma alanları',
     viewAll: 'Tümünü gör',
     steps: {

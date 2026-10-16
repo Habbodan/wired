@@ -31,7 +31,6 @@ export const ptBR: Messages = {
     subtitle:
       'Veja, edite e organize as variáveis Wired do seu quarto em qualquer dispositivo, com as chaves do seu add-on Web API.',
     cta: 'Criar um espaço de trabalho',
-    browse: 'Ver espaços de trabalho',
     recent: 'Espaços de trabalho recentes',
     viewAll: 'Ver todos',
     steps: {
