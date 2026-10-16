@@ -61,6 +61,10 @@ The script prints the client secret once. Put it in `HABBODAN_OAUTH_CLIENT_SECRE
 
 Issues and pull requests are welcome. Please read [CONTRIBUTING.md](CONTRIBUTING.md) first. Security problems go through [SECURITY.md](SECURITY.md), not public issues.
 
+## Contributors
+
+- <img src="client/public/flags/tr.svg" alt="TR" width="16" height="16"> [eser58](https://habbodan.com/profile/tr/eser58) from Habbo.com.tr
+
 ## License
 
 [MIT](LICENSE). Habbodan is a fan site and is not affiliated with, endorsed, sponsored or approved by Sulake.
